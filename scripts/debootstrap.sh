@@ -76,7 +76,7 @@ cp -a scripts/msm-firmware-loader.sh ${CHROOT}/usr/sbin
 cp configs/*.nmconnection ${CHROOT}/etc/NetworkManager/system-connections
 chmod 0600 ${CHROOT}/etc/NetworkManager/system-connections/*
 cp configs/99-custom.conf ${CHROOT}/etc/NetworkManager/conf.d/
-cp configs/10-led ${CHROOT}/etc/NetworkManager/dispatcher.d/
+cp configs/10-leds ${CHROOT}/etc/NetworkManager/dispatcher.d/
 chmod +x ${CHROOT}/etc/NetworkManager/dispatcher.d/10-led
 
 # install kernel
