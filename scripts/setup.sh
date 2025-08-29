@@ -16,7 +16,7 @@ apt install -qqy --no-install-recommends \
     bridge-utils \
     dnsmasq \
     iptables \
-    libconfig11 \
+    libconfig9 \
     locales \
     modemmanager \
     netcat-traditional \
@@ -84,9 +84,5 @@ systemctl mask systemd-networkd-wait-online.service
 # Prevent the accidental shutdown by power button
 sed -i 's/^#HandlePowerKey=poweroff/HandlePowerKey=ignore/' /etc/systemd/logind.conf
 
-echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
-
-
 # Enable IPv4 and IPv6 forwarding by uncommenting the relevant lines in /etc/sysctl.conf
-#sed -i -e 's/^#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' -e 's/^#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf
+sed -i -e 's/^#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' -e 's/^#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf
