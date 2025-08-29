@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 CHROOT=${CHROOT=$(pwd)/rootfs}
-RELEASE=${RELEASE=stable}
+RELEASE=${RELEASE=bookworm}
 HOST_NAME=${HOST_NAME=openstick}
 
 rm -rf ${CHROOT}
@@ -76,6 +76,8 @@ cp -a scripts/msm-firmware-loader.sh ${CHROOT}/usr/sbin
 cp configs/*.nmconnection ${CHROOT}/etc/NetworkManager/system-connections
 chmod 0600 ${CHROOT}/etc/NetworkManager/system-connections/*
 cp configs/99-custom.conf ${CHROOT}/etc/NetworkManager/conf.d/
+cp configs/10-led ${CHROOT}/etc/NetworkManager/dispatcher.d/
+chmod +x ${CHROOT}/etc/NetworkManager/dispatcher.d/10-led
 
 # install kernel
 wget -O - http://mirror.postmarketos.org/postmarketos/master/aarch64/linux-postmarketos-qcom-msm8916-6.12.1-r2.apk \
