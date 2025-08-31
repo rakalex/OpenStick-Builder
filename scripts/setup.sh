@@ -35,9 +35,15 @@ apt install -qqy --no-install-recommends \
     wget \
     git \
     fd-find \
+    file \
+    iftop \
+    iotop \
+    htop \
     btop \
     bat \
+    ncdu \
     tree \
+    fzf \
     tmux \
     nmap \
     iperf3 \
