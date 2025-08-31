@@ -31,6 +31,11 @@ apt install -qqy --no-install-recommends \
     wpasupplicant \
     bash-completion \
     curl \
+    wget \
+    git \
+    fd-find \
+    btop \
+    nmap \
     ca-certificates \
     zram-tools \
     bc \

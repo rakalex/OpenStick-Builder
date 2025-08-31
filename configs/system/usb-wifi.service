@@ -1,0 +1,11 @@
+[Unit]
+Description=Check USB and toggle Wi-Fi at boot
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/check-usb-wifi.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -79,6 +79,9 @@ cp configs/99-custom.conf ${CHROOT}/etc/NetworkManager/conf.d/
 cp configs/10-leds ${CHROOT}/etc/NetworkManager/dispatcher.d/
 chmod +x ${CHROOT}/etc/NetworkManager/dispatcher.d/10-leds
 
+cp configs/check-usb-wifi.sh ${CHROOT}/usr/local/bin/
+chmod +x ${CHROOT}/usr/local/bin/check-usb-wifi.sh
+
 # install kernel
 wget -O - http://mirror.postmarketos.org/postmarketos/master/aarch64/linux-postmarketos-qcom-msm8916-6.12.1-r2.apk \
     | tar xkzf - -C ${CHROOT} --exclude=.PKGINFO --exclude=.SIGN* 2>/dev/null
