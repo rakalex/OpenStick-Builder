@@ -30,13 +30,21 @@ apt install -qqy --no-install-recommends \
     wireguard-tools \
     wpasupplicant \
     bash-completion \
+    bind9-dnsutils \
     curl \
     wget \
     git \
     fd-find \
     btop \
+    bat \
+    tree \
+    tmux \
     nmap \
+    iperf3 \
+    jq \
+    openssl \
     ca-certificates \
+    socat \
     zram-tools \
     bc \
     ifupdown2 \
