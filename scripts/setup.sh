@@ -34,6 +34,7 @@ apt install -qqy --no-install-recommends \
     curl \
     wget \
     git \
+    libqmi-utils \
     fd-find \
     file \
     iftop \
