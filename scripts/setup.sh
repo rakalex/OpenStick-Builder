@@ -42,11 +42,11 @@ apt install -qqy --no-install-recommends \
     btop \
     bat \
     ncdu \
+    speedtest-cli \
     tree \
     tmux \
     nmap \
-    traceroute \
-    iperf3 \
+    traceroute \    
     lsof \
     tcpdump \
     colordiff \
