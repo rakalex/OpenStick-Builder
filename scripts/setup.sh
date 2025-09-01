@@ -46,7 +46,7 @@ apt install -qqy --no-install-recommends \
     tree \
     tmux \
     nmap \
-    traceroute \    
+    traceroute \
     lsof \
     tcpdump \
     colordiff \
