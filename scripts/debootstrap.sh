@@ -82,6 +82,9 @@ chmod +x ${CHROOT}/etc/NetworkManager/dispatcher.d/10-leds
 cp configs/check-usb-wifi.sh ${CHROOT}/usr/local/bin/
 chmod +x ${CHROOT}/usr/local/bin/check-usb-wifi.sh
 
+echo "export TERM=xterm-256color" >> ${CHROOT}/etc/profile
+echo "stty cols 200 rows 50" >> ${CHROOT}/etc/profile
+
 # install kernel
 wget -O - http://mirror.postmarketos.org/postmarketos/master/aarch64/linux-postmarketos-qcom-msm8916-6.12.1-r2.apk \
     | tar xkzf - -C ${CHROOT} --exclude=.PKGINFO --exclude=.SIGN* 2>/dev/null
