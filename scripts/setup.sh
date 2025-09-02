@@ -34,6 +34,7 @@ apt install -qqy --no-install-recommends \
     curl \
     wget \
     git \
+    screen \
     libqmi-utils \
     fd-find \
     file \
