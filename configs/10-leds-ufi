@@ -1,0 +1,30 @@
+#!/bin/bash
+
+INTERFACE=$1
+STATUS=$2
+
+# Define LED paths (fixed mapping: wwan0 → green:wan, wlan0 → blue:wlan)
+WAN_LED="/sys/class/leds/green:wlan/brightness"
+WLAN_LED="/sys/class/leds/blue:wan/brightness"
+POWER_LED="/sys/class/leds/red:power/brightness"
+
+case "$INTERFACE" in
+    wwan0|wwan0qmi0)
+        if [ "$STATUS" = "up" ]; then
+            echo 1 > "$WAN_LED"
+            echo 0 > "$POWER_LED"
+        else
+            echo 0 > "$WAN_LED"
+            echo 0 > "$POWER_LED"
+        fi
+        ;;
+    wlan0)
+        if [ "$STATUS" = "up" ]; then
+            echo 1 > "$WLAN_LED"
+        else
+            echo 0 > "$WLAN_LED"
+        fi
+        ;;
+    *)
+        ;;
+esac
