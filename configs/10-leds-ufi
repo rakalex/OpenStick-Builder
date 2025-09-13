@@ -15,7 +15,7 @@ case "$INTERFACE" in
             echo 0 > "$POWER_LED"
         else
             echo 0 > "$WAN_LED"
-            echo 0 > "$POWER_LED"
+            echo 1 > "$POWER_LED"
         fi
         ;;
     wlan0)
