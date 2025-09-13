@@ -84,6 +84,7 @@ chmod +x ${CHROOT}/usr/local/bin/check-usb-wifi.sh
 
 echo "export TERM=xterm-256color" >> ${CHROOT}/etc/profile
 echo "stty cols 200 rows 50" >> ${CHROOT}/etc/profile
+echo 'export PATH=$PATH:/usr/sbin:/sbin' | sudo tee -a ${CHROOT}/etc/profile
 
 # install kernel
 wget -O - http://mirror.postmarketos.org/postmarketos/master/aarch64/linux-postmarketos-qcom-msm8916-6.12.1-r2.apk \

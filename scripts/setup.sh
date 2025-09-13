@@ -34,6 +34,9 @@ apt install -qqy --no-install-recommends \
     curl \
     wget \
     git \
+    grc \
+    screen \
+    libqmi-utils \
     fd-find \
     file \
     iftop \
@@ -101,15 +104,6 @@ EOF
 
 # install dnsproxy
 bash /install_dnsproxy.sh
-
-#install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --no-zsh --no-fish --key-bindings --completion --update-rc
-echo 'export FZF_DEFAULT_OPTS="--height 100% --border --scrollbar --color scrollbar:red --reverse"' >> ~/.bashrc
-echo 'export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git -u --strip-cwd-prefix"' >> ~/.bashrc
-echo 'export FZF_ALT_C_COMMAND="fd --type directory"' >> ~/.bashrc
-echo 'export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"' >> ~/.bashrc
-
 
 systemctl mask systemd-networkd-wait-online.service
 
