@@ -49,6 +49,8 @@ apt install -qqy --no-install-recommends \
     tree \
     tmux \
     nmap \
+    make \
+    bzip2 \
     traceroute \
     lsof \
     tcpdump \
@@ -104,6 +106,8 @@ EOF
 
 # install dnsproxy
 bash /install_dnsproxy.sh
+
+timedatectl set-timezone Europe/Kyiv
 
 systemctl mask systemd-networkd-wait-online.service
 

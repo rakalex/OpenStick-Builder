@@ -27,6 +27,7 @@ mount -o bind /run ${CHROOT}/run/
 
 # chroot setup
 cp configs/install_dnsproxy.sh ${CHROOT}
+cp configs/install_btop.sh ${CHROOT}
 cp scripts/setup.sh ${CHROOT}
 chroot ${CHROOT} qemu-aarch64-static /bin/sh -c /setup.sh
 
@@ -36,6 +37,7 @@ for a in proc sys dev/pts dev run; do
 done;
 
 rm ${CHROOT}/install_dnsproxy.sh
+rm ${CHROOT}/install_btop.sh
 rm -f ${CHROOT}/setup.sh
 echo -n > ${CHROOT}/root/.bash_history
 
