@@ -49,6 +49,19 @@ find_udc_device() {
     fi
 }
 
+set_otg_mode() {
+    local mode="$1"
+    local udc_device="$(find_udc_device)"
+    local role_file="/sys/class/udc/${udc_device}/device/role"
+    
+    if [ ! -f "${role_file}" ]; then
+        error "OTG role control not available at ${role_file}"
+    fi
+    
+    log "Setting OTG mode to: ${mode}"
+    echo "${mode}" > "${role_file}" || error "Failed to set OTG mode to ${mode}"
+}
+
 get_serial_number() {
     # Use machine-id as the source of uniqueness
     if [ -f /etc/machine-id ]; then
@@ -109,6 +122,20 @@ create_storage_image() {
 
 setup_gadget() {
     log "Setting up USB gadget"
+
+    # Check if OTG host mode is requested
+    if [ "${ENABLE_OTG_HOST}" = "1" ]; then
+        log "WARNING: OTG host mode requested - this will disable gadget functionality!"
+        log "Make sure you have WiFi or LTE connectivity available for remote access."
+        
+        # Tear down any existing gadget first
+        teardown_gadget
+        
+        # Set to host mode
+        set_otg_mode "host"
+        log "USB controller set to host mode"
+        return
+    fi
 
     # Load required modules
     modprobe libcomposite
@@ -250,14 +277,17 @@ setup_gadget() {
 setup_network() {
     log "Configuring network interfaces"
 
-    # Wait for interfaces to appear
-    sleep 1
-
-    # Check if bridge exists
-    if ! ip link show "${NETWORK_BRIDGE}" >/dev/null 2>&1; then
-        log "Warning: Bridge ${NETWORK_BRIDGE} does not exist"
-        return
-    fi
+    # Wait up to 30s for bridge to exist (As NetworkManager is slower at creating it)
+    max_wait=30
+    waited=0
+    while ! ip link show "${NETWORK_BRIDGE}" >/dev/null 2>&1; do
+        if [ $waited -ge $max_wait ]; then
+            log "Warning: Bridge ${NETWORK_BRIDGE} does not exist after ${max_wait}s"
+            return
+        fi
+        sleep 1
+        waited=$((waited + 1))
+    done
 
     # Add interfaces to bridge
     if [ "${ENABLE_RNDIS}" = "1" ] && [ -f functions/rndis.usb0/ifname ]; then
@@ -337,6 +367,20 @@ teardown_gadget() {
 }
 
 status() {
+    # Check OTG mode status
+    local udc_device="$(find_udc_device)"
+    local role_file="/sys/class/udc/${udc_device}/device/role"
+    
+    if [ -f "${role_file}" ]; then
+        local current_role="$(cat "${role_file}" 2>/dev/null || echo "unknown")"
+        echo "OTG Role: ${current_role}"
+        
+        if [ "${current_role}" = "host" ]; then
+            echo "USB is in HOST mode - gadget functions are disabled"
+            return 0
+        fi
+    fi
+
     if [ -d "${GADGET_PATH}" ] && [ -s "${GADGET_PATH}/UDC" ]; then
         echo "USB Gadget is active"
         echo "UDC: $(cat ${GADGET_PATH}/UDC)"
